@@ -1,0 +1,11 @@
+<div class="container my-5">
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ todo.title }}</h5>
+      <p class="card-text">{{ todo.description }}</p>
+      <p class="card-text"><small class="text-muted">Due: {{ todo.dueDate | date: 'mediumDate'}}</small></p>
+      <button class="btn btn-danger m-2" (click)="deleteTodo()" *ngIf="storedUserData">Delete</button>
+      <button class="btn btn-secondary" (click)="editTodo()" *ngIf="storedUserData">Edit</button>
+    </div>
+  </div>
+</div>

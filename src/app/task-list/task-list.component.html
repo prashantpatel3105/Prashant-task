@@ -1,0 +1,36 @@
+
+<div class="container mt-5 col-5">
+  <h2 class="mb-4 text-center">Todo List</h2>
+  
+  <div class="form-group">
+    <label for="searchQuery mb-2">Search</label>
+    <input type="text" class="form-control mb-2" id="searchQuery" #searchQueryInput placeholder="Search by title, description, or due date" (keyup)="onSearch(searchQueryInput.value)">
+  </div>
+  <ng-container *ngIf="storedUserData">
+    <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input type="text" class="form-control mb-2" placeholder="Title" formControlName="title" required>
+      </div>
+      <div class="form-group">
+        <textarea class="form-control mb-2" placeholder="Description" formControlName="description"></textarea>
+      </div>
+      <div class="form-group">
+        <input type="date" class="form-control mb-2" formControlName="dueDate">
+      </div>
+      <button type="submit" class="btn btn-primary d-flex m-auto">
+        {{ isEdit ? 'Update Todo' : 'Add Todo' }}
+      </button>
+    </form>
+  </ng-container>
+  <ng-container *ngIf="todos.length; else noResults">
+    <app-todo-item
+      *ngFor="let todo of todos"
+      [todo]="todo"
+      (delete)="onDelete($event)"
+      (edit)="onEdit($event)">
+    </app-todo-item>
+  </ng-container>
+  <ng-template #noResults>
+    <h3>No result found</h3>
+  </ng-template>  
+</div>
